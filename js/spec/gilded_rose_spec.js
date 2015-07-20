@@ -79,6 +79,19 @@ describe("Gilded Rose", function() {
         expect(item.sell_in).toEqual(1);
         expect(item.quality).toEqual(1);
       });
+
+      describe('sell in less than 0', function() {
+        beforeEach(function() {
+          item.sell_in = -1;
+        });
+
+        it('increases twice as fast', function() {
+          update_quality();
+
+          expect(item.sell_in).toEqual(-2);
+          expect(item.quality).toEqual(2);
+        });
+      });
     });
 
     describe('elixir', function() {

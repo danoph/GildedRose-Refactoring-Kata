@@ -178,5 +178,19 @@ describe("Gilded Rose", function() {
         expect(item.quality).toEqual(0);
       });
     });
+
+    describe('conjured mana cake', function() {
+      beforeEach(function() {
+        item = items[9];
+      });
+
+      it('never decreases quality or sell by date', function() {
+        update_quality();
+
+        expect(item.name).toEqual('Conjured Mana Cake');
+        expect(item.sell_in).toEqual(2);
+        expect(item.quality).toEqual(4);
+      });
+    });
   });
 });

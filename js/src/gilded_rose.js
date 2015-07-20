@@ -14,8 +14,31 @@ var ItemFactory = function(item) {
       return new AgedBrie(item);
     } else if (item.name == 'Conjured Mana Cake') {
       return new ConjuredItem(item);
+    } else if (item.name == 'Backstage passes to a TAFKAL80ETC concert') {
+      return new BackstagePassItem(item);
     } else {
       return new NormalItem(item);
+    }
+  };
+};
+
+var BackstagePassItem = function(item) {
+  var self = this;
+
+  self.update = function() {
+    add_quality(item);
+
+    if (item.sell_in < 11) {
+      add_quality(item);
+    }
+    if (item.sell_in < 6) {
+      add_quality(item);
+    }
+
+    item.sell_in -= 1;
+
+    if (item.sell_in < 0) {
+      item.quality = 0;
     }
   };
 };
@@ -59,20 +82,7 @@ var NormalItem = function(item) {
   };
 
   self.updateQuality = function() {
-    if (item.name != 'Backstage passes to a TAFKAL80ETC concert') {
-      subtract_quality(item);
-    } else {
-      add_quality(item);
-
-      if (item.name == 'Backstage passes to a TAFKAL80ETC concert') {
-        if (item.sell_in < 11) {
-          add_quality(item);
-        }
-        if (item.sell_in < 6) {
-          add_quality(item);
-        }
-      }
-    }
+    subtract_quality(item);
   }
 
   self.updateSellIn = function() {
@@ -81,11 +91,7 @@ var NormalItem = function(item) {
 
   self.updateQuality2 = function() {
     if (item.sell_in < 0) {
-      if (item.name != 'Backstage passes to a TAFKAL80ETC concert') {
-        subtract_quality(item);
-      } else {
-        item.quality = item.quality - item.quality
-      }
+      subtract_quality(item);
     }
   };
 };

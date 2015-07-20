@@ -12,6 +12,8 @@ var ItemFactory = function(item) {
       return new SulfurasItem(item);
     } else if (item.name == 'Aged Brie') {
       return new AgedBrie(item);
+    } else if (item.name == 'Conjured Mana Cake') {
+      return new ConjuredItem(item);
     } else {
       return new NormalItem(item);
     }
@@ -38,6 +40,15 @@ var SulfurasItem = function(item) {
   };
 };
 
+var ConjuredItem = function(item) {
+  var self = this;
+
+  self.update = function() {
+    item.quality -= 2;
+    item.sell_in -= 1;
+  };
+};
+
 var NormalItem = function(item) {
   var self = this;
 
@@ -50,10 +61,6 @@ var NormalItem = function(item) {
   self.updateQuality = function() {
     if (item.name != 'Backstage passes to a TAFKAL80ETC concert') {
       subtract_quality(item);
-
-      if (item.name == 'Conjured Mana Cake') {
-        subtract_quality(item);
-      }
     } else {
       add_quality(item);
 
